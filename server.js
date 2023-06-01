@@ -1,20 +1,22 @@
 const express = require('express');
 const mailchimp = require('@mailchimp/mailchimp_marketing');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const PORT = 8000;
 
-app.use(cors({
-  origin: 'http://localhost:3000'
-})); // Habilitar CORS
+var corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 // Configurar la API Key y el servidor de Mailchimp
 mailchimp.setConfig({
-  apiKey: '9075a4905c4a305aa0950574558ab8fa-us17',
-  server: 'us17', // por ejemplo, "us1"
+  apiKey: process.env.MAIL_CHIMP_APIKEY,
+  server: process.env.SERVER, // por ejemplo, "us1"
 });
-const listId = '909141cea0';
+const listId = process.env.LIST_ID;
 
 // Middleware para analizar los datos JSON del cuerpo de la solicitud
 app.use(express.json());
@@ -43,8 +45,11 @@ app.post('/api/mailchimp', async (req, res) => {
 });
 
 // Ruta de prueba para verificar si el servidor está en funcionamiento
-app.get('/api/test', (req, res) => {
-  res.status(200).json({ message: 'Servidor en funcionamiento' });
+app.get('/api/test', cors(corsOptions), (req, res) => {
+  res.status(200).json({
+    message: 'Servidor en funcionamiento',
+    origin: process.env.CORS_ORIGIN
+  });
 });
 
 // Iniciar el servidor
