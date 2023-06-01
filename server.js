@@ -41,7 +41,9 @@ app.post('/api/mailchimp', cors(corsOptions), async (req, res) => {
     res.status(200).json({ message: 'Miembro agregado correctamente' });
   } catch (error) {
     console.error('Error al agregar el miembro:', error);
-    res.status(500).json({ error: 'Error al agregar el miembro' });
+    res.status(500).json({
+      message: 'Error al agregar el miembro',
+      error: error });
   }
 });
 
