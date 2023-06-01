@@ -20,6 +20,7 @@ const listId = process.env.LIST_ID;
 
 // Middleware para analizar los datos JSON del cuerpo de la solicitud
 app.use(express.json());
+app.use(cors())
 
 // Ruta para agregar un miembro a la lista de Mailchimp
 app.post('/api/mailchimp', cors(corsOptions), async (req, res) => {
