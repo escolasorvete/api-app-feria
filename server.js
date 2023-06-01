@@ -22,7 +22,7 @@ const listId = process.env.LIST_ID;
 app.use(express.json());
 
 // Ruta para agregar un miembro a la lista de Mailchimp
-app.post('/api/mailchimp', async (req, res) => {
+app.post('/api/mailchimp', cors(corsOptions), async (req, res) => {
   const { email, firstName, lastName } = req.body;
 
   const subscriber = {
