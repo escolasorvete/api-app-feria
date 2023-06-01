@@ -47,7 +47,7 @@ app.post('/api/mailchimp', async (req, res) => {
 // Ruta de prueba para verificar si el servidor está en funcionamiento
 app.get('/api/test', cors(corsOptions), (req, res) => {
   res.status(200).json({
-    message: 'Servidor en funcionamiento',
+    message: 'Servidor en funcionamiento OK',
     origin: process.env.CORS_ORIGIN
   });
 });
