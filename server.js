@@ -14,7 +14,7 @@ var corsOptions = {
 // Configurar la API Key y el servidor de Mailchimp
 mailchimp.setConfig({
   apiKey: process.env.MAIL_CHIMP_APIKEY,
-  server: process.env.SERVER, // por ejemplo, "us1"
+  server: 'us17', // por ejemplo, "us1"
 });
 const listId = process.env.LIST_ID;
 
