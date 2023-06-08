@@ -100,6 +100,43 @@ app.delete("/api/json/:index", cors(corsOptions), (req, res) => {
   });
 });
 
+app.post('/api/json', cors(corsOptions), (req, res) => {
+  console.log(req.body);
+  const jsonPath = path.join(__dirname, 'segments.json');
+  const { segment } = req.body;
+
+  fs.readFile(jsonPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error al leer el archivo JSON:', err);
+      res.status(500).json({ error: 'Error al leer el archivo JSON' });
+      return;
+    }
+
+    try {
+      const jsonData = JSON.parse(data);
+      jsonData.segments.push(segment); // Agregar el nuevo segmento al arreglo
+      const updatedJsonData = JSON.stringify(jsonData, null, 2);
+
+      fs.writeFile(jsonPath, updatedJsonData, 'utf8', (err) => {
+        if (err) {
+          console.error('Error al escribir en el archivo JSON:', err);
+          res.status(500).json({ error: 'Error al escribir en el archivo JSON' });
+          return;
+        }
+
+        res.status(200).json({ message: 'Segmento creado correctamente' });
+      });
+    } catch (error) {
+      console.error('Error al analizar el contenido del archivo JSON:', error);
+      res
+        .status(500)
+        .json({ error: 'Error al analizar el contenido del archivo JSON' });
+    }
+  });
+});
+
+
+
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);
 });
