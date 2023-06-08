@@ -37,8 +37,8 @@ app.post('/api/mailchimp', cors(corsOptions), async (req, res) => {
   };
 
   try {
-//    const response = await mailchimp.lists.addListMember(listId, subscriber);
-//    console.log('Miembro agregado:', response);
+    const response = await mailchimp.lists.addListMember(listId, subscriber);
+    console.log('Miembro agregado:', response);
     res.status(200).json({ message: 'Miembro agregado correctamente' });
   } catch (error) {
     console.error('Error al agregar el miembro:', error);
