@@ -5,7 +5,7 @@ require('dotenv').config();
 const { uuid } = require('uuidv4');
 
 const app = express();
-const PORT = 8000;
+const PORT = 8001;
 
 var corsOptions = {
   origin: process.env.CORS_ORIGIN,
